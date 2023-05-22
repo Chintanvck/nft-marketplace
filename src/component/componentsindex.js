@@ -12,5 +12,6 @@ import NFTCard from "./NFTCard/NFTCard";
 import Collection from "./Collection/Collection";
 import AudioLive from "./AudioLive/AudioLive";
 import FollowerTab from "./FollowerTab/FollowerTab";
+import Slider from "./Slider/Slider";
 
-export {Button, Footer, NavBar, HeroSection, Service, BigNFTSlider, Subscribe, Title, Category, Filter, NFTCard, Collection, AudioLive, FollowerTab} ;
+export {Button, Footer, NavBar, HeroSection, Service, BigNFTSlider, Subscribe, Title, Category, Filter, NFTCard, Collection, AudioLive, FollowerTab, Slider} ;

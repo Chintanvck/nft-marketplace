@@ -1,6 +1,6 @@
 import React from "react";
 import Style from "../style/index.module.css"
-import { AudioLive, BigNFTSlider, Category, Collection, Filter, FollowerTab, HeroSection, NFTCard, Service, Subscribe, Title } from "@/component/componentsindex";
+import { AudioLive, BigNFTSlider, Category, Collection, Filter, FollowerTab, HeroSection, NFTCard, Service, Slider, Subscribe, Title } from "@/component/componentsindex";
 
 const Home = () => {
   return (
@@ -13,6 +13,8 @@ const Home = () => {
       <AudioLive/> 
 
       <FollowerTab/>
+
+      <Slider/>
 
       <Title heading="New Collection" paragraph=""/>
       <Collection/>
