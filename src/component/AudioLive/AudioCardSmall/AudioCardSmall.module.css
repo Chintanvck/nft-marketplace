@@ -30,7 +30,7 @@
     font-size: .8rem;
     width: 40%;
     font-weight: 600;
-    border-radius: .2rem;
+    border-radius: .5rem;
 }
 
 .audioPlayer_box_info_box_price small{
@@ -42,6 +42,9 @@
 
 .audioPlayer_box_info_box_price p{
     margin-top:  1rem;
+    margin-left: 2rem;
+    margin-right: 2rem;
+    line-height: 1;
 }
 
 .audioPlayer_box_playBtn{

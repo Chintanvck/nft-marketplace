@@ -7,7 +7,17 @@ import Image from 'next/image'
 import images from "../../img"
 
 const NFTCard = () => {
-    const featureArray = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+    const featureArray = [
+        images.nft_image_1,
+        images.nft_image_2,
+        images.nft_image_3,
+        images.nft_image_1,
+        images.nft_image_2,
+        images.nft_image_3,
+        images.nft_image_1,
+        images.nft_image_2,
+        images.nft_image_3,
+      ];
 
     const [like, setlike] = useState(true);
 
@@ -25,7 +35,7 @@ const NFTCard = () => {
             {featureArray.map((el, i) => (
                 <div className={Style.NFTCard_box} key={i + 1}>
                     <div className={Style.NFTCard_box_img}>
-                        <Image src={images.nft_image_1} alt='NFT images' width={400} height={450} className={Style.NFTCard_box_img_img} />
+                        <Image src={el} alt='NFT images' width={400} height={400} className={Style.NFTCard_box_img_img} />
                     </div>
                     <div className={Style.NFTCard_box_update}>
                         <div className={Style.NFTCard_box_update_left}>

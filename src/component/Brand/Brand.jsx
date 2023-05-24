@@ -20,7 +20,7 @@ const Brand = () => {
           </div>
         </div>
         <div className={Style.Brand_box_right}>
-          <Image src={images.earn} alt="brand logo" width={800} height={600} />
+          <Image src={images.earn} alt="brand logo" width={650} height={450} />
         </div>
       </div>
     </div>

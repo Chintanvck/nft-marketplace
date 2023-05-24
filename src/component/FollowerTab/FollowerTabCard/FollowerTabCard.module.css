@@ -47,7 +47,7 @@
 }
 
 
-.FollowerTabCard_box_profile::before{
+/* .FollowerTabCard_box_profile::before{
     position: absolute;
     content: "";
     width: 5rem;
@@ -56,13 +56,14 @@
     border-radius: 50%;
     top: 10%;
     left: 38%;
-}
+} */
 
 .FollowerTabCard_box_profile_img{
     border-radius: 50%;
-    padding: 1rem;
-    z-index: 22222222;
-    position: relative;
+    /* padding: 1rem; */
+    border-style: solid;
+    border-color: var(--main-bg-color);
+    border-width: 10px;
 }
 
 .FollowerTabCard_box_info{
