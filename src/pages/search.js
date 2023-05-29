@@ -7,7 +7,7 @@ import images from "../img"
 import { NFTCardTwo, Banner } from '@/collectionPage/collectionIndex'
 import { SearchBar } from '@/searchPage/searchBarIndex'
 
-const searchPage = () => {
+const search = () => {
     const collectionArray = [
         images.nft_image_1,
         images.nft_image_2,
@@ -30,4 +30,4 @@ const searchPage = () => {
   )
 }
 
-export default searchPage
+export default search
