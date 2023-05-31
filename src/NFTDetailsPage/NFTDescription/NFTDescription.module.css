@@ -35,6 +35,7 @@
     gap: 1rem;
     transition: all .3s ease-in;
     padding: .5rem 0;
+    font-size: medium;
 }
 
 .NFTDescription_box_share_box_social a:hover{
