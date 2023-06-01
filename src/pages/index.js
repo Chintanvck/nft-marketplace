@@ -2,7 +2,15 @@ import React from "react";
 import Style from "../style/index.module.css"
 import { AudioLive, BigNFTSlider, Brand, Category, Collection, Filter, FollowerTab, HeroSection, NFTCard, Service, Slider, Subscribe, Title, Video } from "@/component/componentsindex";
 
+import { useContext, useEffect } from "react";
+import { NFTMarketplaceContext } from "../../Context/NFTMarketplaceContext";
+
 const Home = () => {
+  const { checkIfWalletConnected } = useContext(NFTMarketplaceContext);
+
+  useEffect(()=>{
+    checkIfWalletConnected();
+  },[])
   return (
     <div className={Style.homePage}>
       <HeroSection/>

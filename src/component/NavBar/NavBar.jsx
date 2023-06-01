@@ -12,6 +12,11 @@ import { Discover, HelpCenter, Notification, Profile, SideBar } from "./index";
 import { Button } from "../componentsindex";
 import images from "../../img";
 
+//import from smart contract
+
+import { NFTMarketplaceContext } from "../../../Context/NFTMarketplaceContext";
+import { useContext } from "react";
+
 const NavBar = () => {
   //----USESTATE COMPONNTS
   const [discover, setDiscover] = useState(false);
@@ -93,17 +98,22 @@ const NavBar = () => {
     }
   };
 
+  //Smart contract section
+  const {currentAccount, connectWallet} = useContext(NFTMarketplaceContext)
+
   return (
     <div className={Style.navbar}>
       <div className={Style.navbar_container}>
         <div className={Style.navbar_container_left}>
           <div className={Style.logo}>
+            <Link href={{pathname: "/"}}>
             <Image
               src={images.logo}
               alt="NFT MARKET PLACE"
               width={100}
               height={100}
             />
+            </Link>
           </div>
           <div className={Style.navbar_container_left_box_input}>
             <div className={Style.navbar_container_left_box_input_box}>
@@ -146,7 +156,13 @@ const NavBar = () => {
 
           {/* CREATE BUTTON SECTION */}
           <div className={Style.navbar_container_right_button}>
-            <Button btnName="Create" handleClick={() => {}} />
+            {currentAccount == "" ? (
+            <Button btnName="Connect" handleClick={()=>connectWallet()}/> 
+            ): (
+              <Link href={{pathname: "/upload-NFT"}}>
+            <Button btnName="Create" handleClick={()=>{}} />
+            </Link>
+            )}
           </div>
 
           {/* USER PROFILE */}
