@@ -12,16 +12,22 @@ import images from "../img"
 import { Button } from '@/component/componentsindex';
 import { DropZone } from './UploadNFTIndex';
 
-const UploadNFT = () => {
+import { useRouter } from 'next/router';
 
-    const [active, setActive] = useState(0);
-  const [itemName, setItemName] = useState("");
+const UploadNFT = ({ uploadToIPFS, createNFT }) => {
+
+  const [active, setActive] = useState(0);
+  const [name, setName] = useState("");
   const [website, setWebsite] = useState("");
   const [description, setDescription] = useState("");
   const [royalties, setRoyalties] = useState("");
   const [fileSize, setFileSize] = useState("");
   const [category, setCategory] = useState(0);
   const [properties, setProperties] = useState("");
+
+  const [price, setPrice] = useState("");
+  const [image, setImage] = useState(null);
+  const router = useRouter();
 
   const categoryArry = [
     {
@@ -56,14 +62,15 @@ const UploadNFT = () => {
         title="JPG, PNG, WEBM , MAX 100MB"
         heading="Drag & drop file"
         subHeading="or Browse media on your device"
-        itemName={itemName}
+        name={name}
         website={website}
         description={description}
         royalties={royalties}
         fileSize={fileSize}
         category={category}
         properties={properties}
-        image={images.upload}
+        setImage={setImage}
+        uploadToIPFS={uploadToIPFS}
       />
 
       <div className={Style.upload_box}>
@@ -73,7 +80,7 @@ const UploadNFT = () => {
             type="text"
             placeholder="Chintan Kotadiya"
             className={formStyle.Form_box_input_userName}
-            onChange={(e) => setItemName(e.target.value)}
+            onChange={(e) => setName(e.target.value)}
           />
         </div>
 
@@ -123,9 +130,8 @@ const UploadNFT = () => {
           <div className={Style.upload_box_slider_div}>
             {categoryArry.map((el, i) => (
               <div
-                className={`${Style.upload_box_slider} ${
-                  active == i + 1 ? Style.active : ""
-                }`}
+                className={`${Style.upload_box_slider} ${active == i + 1 ? Style.active : ""
+                  }`}
                 key={i + 1}
                 onClick={() => (setActive(i + 1), setCategory(el.category))}
               >
@@ -177,6 +183,20 @@ const UploadNFT = () => {
             </div>
           </div>
           <div className={formStyle.Form_box_input}>
+            <label htmlFor="Price">Price</label>
+            <div className={formStyle.Form_box_input_box}>
+              <div className={formStyle.Form_box_input_box_icon}>
+                <AiTwotonePropertySafety />
+              </div>
+              <input
+                type="text"
+                placeholder="Price"
+                onChange={(e) => setPrice(e.target.value)}
+              />
+            </div>
+          </div>
+
+          <div className={formStyle.Form_box_input}>
             <label htmlFor="Propertie">Properties</label>
             <div className={formStyle.Form_box_input_box}>
               <div className={formStyle.Form_box_input_box_icon}>
@@ -194,12 +214,25 @@ const UploadNFT = () => {
         <div className={Style.upload_box_btn}>
           <Button
             btnName="Upload"
-            handleClick={() => {}}
+            handleClick={
+              async () => createNFT(
+                name,
+                price,
+                image,
+                description,
+                router,
+                // website,
+                // royalties,
+                // fileSize,
+                // category,
+                // properties
+              )
+            }
             classStyle={Style.upload_box_btn_style}
           />
           <Button
             btnName="Preview"
-            handleClick={() => {}}
+            handleClick={() => { }}
             classStyle={Style.upload_box_btn_style}
           />
         </div>

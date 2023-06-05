@@ -13,7 +13,7 @@ import images from "../../img"
 import { Button } from '@/component/componentsindex';
 import { useState } from 'react';
 
-const AuthorProfileCard = () => {
+const AuthorProfileCard = ({currentAccount}) => {
 
     const [share, setShare] = useState(false);
     const [report, setReport] = useState(false);
@@ -66,7 +66,7 @@ const AuthorProfileCard = () => {
                     <div className={Style.AuthorProfileCard_box_info_address}>
                         <input
                             type="text"
-                            value="0x829BD824B03D092293333..A830"
+                            value={currentAccount}
                             id="myInput"
                         />
                         <FiCopy

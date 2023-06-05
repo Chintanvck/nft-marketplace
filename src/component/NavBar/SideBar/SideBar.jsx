@@ -17,7 +17,7 @@ import Style from "./SideBar.module.css";
 import images from "../../../img";
 import Button from "../../Button/Button";
 
-const SideBar = ({ setOpenSideMenu }) => {
+const SideBar = ({ setOpenSideMenu, currentAccount, connectWallet }) => {
   //------USESTATE
   const [openDiscover, setOpenDiscover] = useState(false);
   const [openHelp, setOpenHelp] = useState(false);
@@ -97,6 +97,7 @@ const SideBar = ({ setOpenSideMenu }) => {
     setOpenSideMenu(false);
   };
 
+
   return (
     <div className={Style.sideBar}>
       <GrClose
@@ -172,7 +173,16 @@ const SideBar = ({ setOpenSideMenu }) => {
       </div>
 
       <div className={Style.sideBar_button}>
-        <Button btnName="Create" handleClick={() => {}} />
+        {
+          currentAccount == "" ? (
+          <Button btnName="Connect" handleClick={()=>connectWallet()}/>
+          ) : (
+            <Link href={{pathname:"/upload-NFT"}}>
+            <Button btnName="Create" handleClick={() => {}} />
+            </Link>
+          )
+        }
+        
         <Button btnName="Connect Wallet" handleClick={() => {}} />
       </div>
     </div>

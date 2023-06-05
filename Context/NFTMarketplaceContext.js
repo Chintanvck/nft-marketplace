@@ -1,13 +1,28 @@
 import React from 'react'
 
 import { useState, useContext, useEffect } from 'react'
+import { useRouter } from 'next/router'
 import Web3Modal from "web3modal"
 import { ethers } from "ethers"
 import Router from 'next/router'
 import axios from 'axios'
 import { create as ipfsHttpClient } from "ipfs-http-client"
 
-const client = ipfsHttpClient("https://ipfs.infura.io:5001/api/v0")
+// const client = ipfsHttpClient("https://ipfs.infura.io:5001/api/v0")
+
+const projectId = "2QdgncBYKZCkUL4UgHMSofQk7GQ";
+const projectSecretKey = "2510233fa4d08eb5828d61cefd7d518e";
+const auth = `Basic ${Buffer.from(`${projectId}:${projectSecretKey}`).toString("base64")}`;
+const subdomain = "https://ck-nft-marketplace.infura-ipfs.io";
+
+const client = ipfsHttpClient({
+    host: "infura-ipfs.io",
+    port: 5001,
+    protocol: "https",
+    headers: {
+        authorization: auth,
+    },
+})
 
 import { NFTMarketplaceAddress, NFTMarketplaceABI } from './constants'
 
@@ -40,6 +55,7 @@ export const NFTMarketplaceProvider = (({ children }) => {
 
     //usestate
     const [currentAccount, setCurrentAccount] = useState("");
+    const router = useRouter();
 
     //Check if wallet is connected
     const checkIfWalletConnected = async () => {
@@ -59,7 +75,7 @@ export const NFTMarketplaceProvider = (({ children }) => {
         } catch (error) {
             console.log("Something wrong while connecting to wallet")
         }
-        
+
     }
 
     useEffect(() => {
@@ -76,7 +92,7 @@ export const NFTMarketplaceProvider = (({ children }) => {
             });
 
             setCurrentAccount(accounts[0]);
-            window.location.reload();
+            // window.location.reload();
         } catch (error) {
             console.log("Error while connecting to wallet")
         }
@@ -86,7 +102,7 @@ export const NFTMarketplaceProvider = (({ children }) => {
     const uploadToIPFS = async (file) => {
         try {
             const added = await client.add({ content: file });
-            const url = `https://ipfs.infura.io/ipfs/${added.path}`;
+            const url = `${subdomain}/ipfs/${added.path}`;
             return url;
         } catch (error) {
             console.log("Error uploading to IPFS")
@@ -94,20 +110,24 @@ export const NFTMarketplaceProvider = (({ children }) => {
     }
 
     //createNFT function
-    const createNFT = async (formInput, fileUrl, router) => {
-        const { name, description, price } = formInput;
+    const createNFT = async (name,
+        price,
+        image,
+        description,
+        router
+    ) => {
 
-        if (!name || !description || !price || !fileUrl) return console.log("Data is Missing");
+        if (!name || !description || !price || !image) return console.log("Data is Missing");
 
-        const data = JSON.stringify({ name, description, image: fileUrl })
+        const data = JSON.stringify({ name, description, image })
 
         try {
             const added = await client.add(data);
 
-            const url = `https://ipfs.infura.io/ipfs/${added.path}`;
+            const url = `https://infura-ipfs.io/ipfs/${added.path}`;
 
             await createSale(url, price)
-
+            router.push('/search')
         } catch (error) {
             console.log(error)
         }
@@ -123,13 +143,14 @@ export const NFTMarketplaceProvider = (({ children }) => {
 
             const transaction = !isReselling ? await contract.createToken(url, price, {
                 value: listingPrice.toString(),
-            }) : await contract.reSellToken(url, price, {
+            }) : await contract.resellToken(id, price, {
                 value: listingPrice.toString(),
             });
 
             await transaction.wait();
+            
         } catch (error) {
-            console.log("Error while creating sale")
+            console.log("Error while creating sale", error)
         }
     }
 
@@ -139,7 +160,7 @@ export const NFTMarketplaceProvider = (({ children }) => {
             const provider = new ethers.providers.JsonRpcProvider();
             const contract = fetchContract(provider);
 
-            const data = await contract.fetchMarketItem();
+            const data = await contract.fetchMarketItems();
 
             const items = await Promise.all(
                 data.map(
@@ -156,7 +177,7 @@ export const NFTMarketplaceProvider = (({ children }) => {
 
                         return {
                             price,
-                            tokenId: tokenId.toNuber(),
+                            tokenId: tokenId.toNumber(),
                             seller,
                             owner,
                             image,
@@ -170,25 +191,29 @@ export const NFTMarketplaceProvider = (({ children }) => {
             return items;
 
         } catch (error) {
-            console.log("Error while fetching NFTs")
+            console.log("Error while fetching NFTs", error)
         }
     }
 
+    useEffect(()=>{
+        fetchNFT()
+    },[])
+
     //Fetch my nft or listed nft
-    const fetchMyNFTsOrListedNFTs = async(type) =>{
+    const fetchMyNFTsOrListedNFTs = async (type) => {
         try {
             const contract = await connectingWithSmaerContract();
 
-            const data = type == "fetchItemsListed" ? await contract.fetchItemsListed() : await contract.fetchMyNFT();
+            const data = type == "fetchItemsListed" ? await contract.fetchItemsListed() : await contract.fetchMyNFTs();
 
             const items = await Promise.all(
                 data.map(
-                    async(
-                        {tokenId, seller, owner, price: unformattedPrice}
-                    ) =>{
+                    async (
+                        { tokenId, seller, owner, price: unformattedPrice }
+                    ) => {
                         const tokenURI = await contract.tokenURI(tokenId);
                         const {
-                            data: {image,name,description},
+                            data: { image, name, description },
                         } = await axios.get(tokenURI);
                         const price = ethers.utils.formatUnits(
                             unformattedPrice.toString(),
@@ -197,7 +222,7 @@ export const NFTMarketplaceProvider = (({ children }) => {
 
                         return {
                             price,
-                            tokenId: tokenId.toNuber(),
+                            tokenId: tokenId.toNumber(),
                             seller,
                             owner,
                             image,
@@ -211,12 +236,12 @@ export const NFTMarketplaceProvider = (({ children }) => {
 
             return items;
         } catch (error) {
-            console.log("Error while fetching listed NFTs")
+            console.log("Error while fetching listed NFTs", error)
         }
     }
 
     //Buy NFTs function
-    const buyNFT = async(nft)=>{
+    const buyNFT = async (nft) => {
         try {
             const contract = await connectingWithSmaerContract();
 
@@ -230,6 +255,7 @@ export const NFTMarketplaceProvider = (({ children }) => {
             });
 
             await transaction.wait();
+            router.push('/author')
         } catch (error) {
             console.log("Error while buying NFTs")
         }
@@ -245,6 +271,7 @@ export const NFTMarketplaceProvider = (({ children }) => {
                 fetchNFT,
                 fetchMyNFTsOrListedNFTs,
                 buyNFT,
+                createSale,
                 currentAccount,
                 titleData
             }}>

@@ -72,8 +72,9 @@
 }
 
 .NFTCardTwo_box_info_left p{
-    font-size: 2rem;
+    font-size: 1.5rem;
     font-weight: 900;
+    line-break: auto;
 } 
 
 .NFTCardTwo_box_price{

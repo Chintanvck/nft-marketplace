@@ -8,6 +8,8 @@ import { MdVerified, MdTimer } from "react-icons/md";
 import LikeProfile from '@/component/LikeProfile/LikeProfile';
 import { useState } from 'react';
 
+import Link from 'next/link';
+
 const NFTCardTwo = ({NFTData}) => {
     const [like, setLike] = useState(false);
     const [likeInc, setLikeInc] = useState(21);
@@ -25,6 +27,7 @@ const NFTCardTwo = ({NFTData}) => {
     return (
       <div className={Style.NFTCardTwo}>
         {NFTData.map((el, i) => (
+          <Link href={{pathname: '/NFT-details', query: el}} key={i+1}>
           <div className={Style.NFTCardTwo_box} key={i + 1}>
             <div className={Style.NFTCardTwo_box_like}>
               <div className={Style.NFTCardTwo_box_like_box}>
@@ -41,7 +44,7 @@ const NFTCardTwo = ({NFTData}) => {
   
             <div className={Style.NFTCardTwo_box_img}>
               <Image
-                src={el}
+                src={el.image}
                 alt="NFT"
                 width={280}
                 height={280}
@@ -53,7 +56,7 @@ const NFTCardTwo = ({NFTData}) => {
             <div className={Style.NFTCardTwo_box_info}>
               <div className={Style.NFTCardTwo_box_info_left}>
                 <LikeProfile />
-                <p>Clone #{i + 1}</p>
+                <p>{el.name}</p>
               </div>
               <small>4{i + 2}</small>
             </div>
@@ -61,15 +64,17 @@ const NFTCardTwo = ({NFTData}) => {
             <div className={Style.NFTCardTwo_box_price}>
               <div className={Style.NFTCardTwo_box_price_box}>
                 <small>Current Bid</small>
-                <p>1{i + 5}.000 ETH</p>
+                <p>{el.price} ETH</p>
               </div>
               <p className={Style.NFTCardTwo_box_price_stock}>
                 <MdTimer /> <span>{i + 1} hours left</span>
               </p>
             </div>
           </div>
+          </Link>
         ))}
       </div>
+      
     );
 }
 

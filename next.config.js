@@ -1,4 +1,10 @@
 /** @type {import('next').NextConfig} */
-const nextConfig = {}
+const nextConfig = {
+    reactStrictMode: true,
+    swcMinify: true,
+    images:{
+        domains: ["ck-nft-marketplace.infura-ipfs.io", "infura-ipfs.io"]
+    }
+}
 
 module.exports = nextConfig

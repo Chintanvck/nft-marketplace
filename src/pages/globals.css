@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 
+/* Theme 1 */
 :root{
   --icons-color: #4c5773;
   --icons-light-color: #4c577341;
@@ -15,6 +16,23 @@
   -.3rem -.3rem 1rem var(--shadow-dark-color)
 
 }
+
+/* Theme 2 */
+/* :root{
+  --icons-color: #FFDF23;
+  --icons-light-color: #FFDF2B57;
+  --icons-bg-color: #FFDF2B;
+  --shadow-dark-color: #555557;
+  --shadow-light-color: #232325;
+  --main-bg-color: #232325;
+
+  --box-shadow: 1px 1px 2px #FFDF2B,
+  -1px -1px -2px #FFDF2B;
+
+  --box-shadow-2: 1px 1px 2px #FFDF2B,
+  -1px -1px -2px #FFDF2B;
+
+} */
 
 html,
 body {
