@@ -53,8 +53,10 @@ import founder3 from "./founder3.jpg"
 import founder4 from "./founder4.jpg"
 import hero2 from "./hero2.png"
 import upload from "./upload.png"
+import loader from "./loader.gif"
 
 export default {
+  loader,
   upload,
   founder1,
   founder2,

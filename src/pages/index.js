@@ -1,16 +1,24 @@
-import React from "react";
+import React, { useState } from "react";
 import Style from "../style/index.module.css"
-import { AudioLive, BigNFTSlider, Brand, Category, Collection, Filter, FollowerTab, HeroSection, NFTCard, Service, Slider, Subscribe, Title, Video } from "@/component/componentsindex";
+import { AudioLive, BigNFTSlider, Brand, Category, Collection, Filter, FollowerTab, HeroSection, NFTCard, Service, Slider, Subscribe, Title, Video, Loader } from "@/component/componentsindex";
 
 import { useContext, useEffect } from "react";
 import { NFTMarketplaceContext } from "../../Context/NFTMarketplaceContext";
 
 const Home = () => {
-  const { checkIfWalletConnected } = useContext(NFTMarketplaceContext);
+  const { checkIfWalletConnected, fetchNFT } = useContext(NFTMarketplaceContext);
 
   useEffect(()=>{
     checkIfWalletConnected();
   },[])
+
+  const [nfts, setNfts] = useState([])
+
+  useEffect(()=>{
+    fetchNFT().then((items)=>{
+      setNfts(items.reverse())
+    })
+  })
   return (
     <div className={Style.homePage}>
       <HeroSection/>
@@ -30,7 +38,7 @@ const Home = () => {
       <Title heading="Featured NFTs" paragraph="Discover the most outstanding NFTs in all topics of life."/>
       <Filter/>
 
-      <NFTCard />
+      {nfts.length == 0 ? <Loader/> : <NFTCard nfts={nfts}/>}
 
       <Title heading="Browse by Category" paragraph="Explore the NFTs in the most featured categories."/>
       <Category/>

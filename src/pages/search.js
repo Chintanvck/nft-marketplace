@@ -10,6 +10,7 @@ import { SearchBar } from '@/searchPage/searchBarIndex'
 //smart contract import
 import { useState, useContext, useEffect } from 'react'
 import { NFTMarketplaceContext } from '../../Context/NFTMarketplaceContext'
+import { Loader } from '@/component/componentsindex'
 
 const search = () => {
 
@@ -58,7 +59,7 @@ const search = () => {
       onHandleSearch = {onHandleSearch}
       onClearSearch = {onClearSearch}/>
       <Filter />
-      <NFTCardTwo NFTData={nfts} />
+      {nfts.length == 0 ? <Loader/> : <NFTCardTwo NFTData={nfts} />}
       <Slider />
       <Brand />
     </div>

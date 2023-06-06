@@ -119,6 +119,7 @@
 
 .NFTCard_box_update_details_price_box h4{
     font-size: 1.3rem;
+    line-break: auto;
 }
 
 .NFTCard_box_update_details_price_box_box{
