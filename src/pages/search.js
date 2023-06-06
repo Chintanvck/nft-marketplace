@@ -14,16 +14,21 @@ import { Loader } from '@/component/componentsindex'
 
 const search = () => {
 
-  const {fetchNFT} = useContext(NFTMarketplaceContext);
+  const {fetchNFT, setError} = useContext(NFTMarketplaceContext);
 
   const [nfts, setNfts] = useState([]);
   const [nftsCopy, setNftsCopy] = useState([]);
 
   useEffect(()=>{
-    fetchNFT().then((items)=>{
-      setNfts(items.reverse());
-      setNftsCopy(items);
-    })
+    try {
+      fetchNFT().then((items)=>{
+        setNfts(items.reverse());
+        setNftsCopy(items);
+      })
+    } catch (error) {
+      setError("Please relod the browser")
+    }
+    
   },[])
 
   const onHandleSearch = (value) => {

@@ -5,9 +5,10 @@
   --icons-color: #4c5773;
   --icons-light-color: #4c577341;
   --icons-bg-color: #e2e6e9;
-  --shadow-dark-color: #d3dae7;
+  --shadow-dark-color: #a6abb3;
   --shadow-light-color: #fff;
   --main-bg-color: #ecf0f3;
+  --overlay: #ecf0f356;
 
   --box-shadow: 1rem 1rem 1rem var(--shadow-dark-color),
   -1rem -1rem 1rem var(--shadow-light-color);
@@ -25,6 +26,7 @@
   --shadow-dark-color: #555557;
   --shadow-light-color: #232325;
   --main-bg-color: #232325;
+  --overlay: #2323255e;
 
   --box-shadow: 1px 1px 2px #FFDF2B,
   -1px -1px -2px #FFDF2B;
@@ -74,7 +76,7 @@ a {
   background:  var(--icons-color);
   width: .5rem;
 }
-/* @media (prefers-color-scheme: light) {
+@media (prefers-color-scheme: light) {
   html {
     color-scheme: dark;
   }
@@ -82,4 +84,4 @@ a {
     color: white;
     background: black;
   }
-} */
+}

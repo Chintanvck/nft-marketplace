@@ -18,6 +18,8 @@ import { NFTMarketplaceContext } from "../../../Context/NFTMarketplaceContext";
 import { useContext } from "react";
 import { useRouter } from "next/router";
 
+import { Error } from "../componentsindex";
+
 const NavBar = () => {
   //----USESTATE COMPONNTS
   const [discover, setDiscover] = useState(false);
@@ -102,7 +104,7 @@ const NavBar = () => {
   };
 
   //Smart contract section
-  const {currentAccount, connectWallet} = useContext(NFTMarketplaceContext)
+  const {currentAccount, connectWallet, openError} = useContext(NFTMarketplaceContext)
 
   return (
     <div className={Style.navbar}>
@@ -200,6 +202,8 @@ const NavBar = () => {
           connectWallet = {connectWallet}/>
         </div>
       )}
+
+      {openError && <Error />}
     </div>
   );
 };
