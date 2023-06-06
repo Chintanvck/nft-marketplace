@@ -5,6 +5,8 @@ import { AudioLive, BigNFTSlider, Brand, Category, Collection, Filter, FollowerT
 import { useContext, useEffect } from "react";
 import { NFTMarketplaceContext } from "../../Context/NFTMarketplaceContext";
 
+import { getTopCreators } from "@/topCreators/topCreators";
+
 const Home = () => {
   const { checkIfWalletConnected, fetchNFT } = useContext(NFTMarketplaceContext);
 
@@ -19,6 +21,11 @@ const Home = () => {
       setNfts(items.reverse())
     })
   })
+
+  //creator list
+  const creators = getTopCreators(nfts);
+
+
   return (
     <div className={Style.homePage}>
       <HeroSection/>
@@ -28,7 +35,8 @@ const Home = () => {
       <Title heading="Latest Audio" paragraph=""/>
       <AudioLive/> 
 
-      <FollowerTab/>
+      {creators.length == 0 ? <Loader/> : <FollowerTab TopCreator={creators}/>}
+      
 
       <Slider/>
 

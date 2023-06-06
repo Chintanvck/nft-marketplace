@@ -31,32 +31,38 @@ const author = () => {
     })
   },[])
 
-    const followerArray = [
-        {
-          background: images.creatorbackground1,
-          user: images.user1,
-        },
-        {
-          background: images.creatorbackground2,
-          user: images.user2,
-        },
-        {
-          background: images.creatorbackground3,
-          user: images.user3,
-        },
-        {
-          background: images.creatorbackground4,
-          user: images.user4,
-        },
-        {
-          background: images.creatorbackground5,
-          user: images.user5,
-        },
-        {
-          background: images.creatorbackground6,
-          user: images.user6,
-        },
-      ];
+  const followerArray = [
+    {
+        background: images.creatorbackground1,
+        user: images.user1,
+        seller: "abcdefghijklmnopqrstuvwxyz"
+    },
+    {
+        background: images.creatorbackground2,
+        user: images.user2,
+        seller: "abcdefghijklmnopqrstuvwxyz"
+    },
+    {
+        background: images.creatorbackground3,
+        user: images.user3,
+        seller: "abcdefghijklmnopqrstuvwxyz"
+    },
+    {
+        background: images.creatorbackground4,
+        user: images.user4,
+        seller: "abcdefghijklmnopqrstuvwxyz"
+    },
+    {
+        background: images.creatorbackground5,
+        user: images.user5,
+        seller: "abcdefghijklmnopqrstuvwxyz"
+    },
+    {
+        background: images.creatorbackground6,
+        user: images.user6,
+        seller: "abcdefghijklmnopqrstuvwxyz"
+    },
+];
     
       const [collectiables, setCollectiables] = useState(true);
       const [created, setCreated] = useState(false);
